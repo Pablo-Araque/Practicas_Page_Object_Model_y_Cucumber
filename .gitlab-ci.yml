@@ -1,0 +1,20 @@
+stages:          # List of stages for jobs, and their order of execution
+  - test
+
+e2e-test-job:   # This job runs in the test stage.
+  image: cypress/browsers:node-22.0.0-chrome-124.0.6367.60-1-ff-125.0.2-edge-124.0.2478.51-1
+  stage: test
+  script:
+
+    # run Cypress tests
+    - npm i cypress
+    - echo "Running Tests"
+    - npx cypress run --browser chrome
+
+
+  artifacts:
+    expire_in: 1 week
+    when: always
+    paths:
+      - cypress/screenshots
+      - cypress/videos
